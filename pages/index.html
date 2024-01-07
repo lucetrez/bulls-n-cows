@@ -1,150 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="theme.css">
 
-    <title>🎯 Bulls and Cows 🐮</title>
-  </head>
-  <body class="bg-green-50 font-sans">
-    <div class="px-4 sm:px-6 lg:px-8 py-6">
-      <div class="text-right text-sm">
-        <a target="_blank" class="underline " href="https://en.wikipedia.org/wiki/Bulls_and_Cows#The_numerical_version">How to play</a>
-      </div>
-      <div class="mx-auto py-10">
-        <h1
-          class="text-4xl text-center font-bold tracking-tight text-green-500 mb-16"
-        >
-          <span class="text-shadow-sm">Bulls and Cows</span>
-        </h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        <div class="sm:w-1/6 mx-auto">
-          <div
-            class="text-xl text-gray-600 font-bold text-center mb-4"
-            id="past-guesses"
-          ></div>
-          <form class="flex flex-col" id="guess">
-            <div class="flex justify-between">
-              <input
-                class="font-sans appearance-none w-full font-bold px-2 py-2 border border-gray-300 rounded-full shadow-sm placeholder-gray-200 focus:outline-none hover:shadow-inner focus:shadow-inner focus:ring-green-500 focus:border-green-500 text-xl text-center"
-                id="guess-input"
-                type="number"
-                placeholder="••••"
-              />
-            </div>
-            <button
-              class="font-sans mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-full shadow-lg hover:shadow-md text-xl font-bold text-black bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-            >
-              Guess
-            </button>
-          </form>
+  <title>🎯 Bulls & Cows 🐮</title>
+</head>
+
+<body class="bg-green-50 font-sans">
+  <div class="px-4 sm:px-6 lg:px-8 py-6">
+    <div class=" text-right text-sm">
+      <a target="_blank" class="underline"
+        href="https://en.wikipedia.org/wiki/Bulls_and_Cows#The_numerical_version">How to play</a>
+    </div>
+    <div class="mx-auto py-10">
+      <h1 class="text-4xl text-center font-bold tracking-tight text-green-500 mb-16">
+        <span class="text-shadow-sm">Bulls & Cows</span>
+      </h1>
+
+      <div class="sm:w-1/6 mx-auto">
+        <div class="text-xl text-gray-600 font-bold text-center mb-4" id="past-guesses"></div>
+        <form class="flex flex-col" id="guess">
+          <div class="flex justify-between">
+            <input
+              class="font-sans appearance-none w-full font-bold px-2 py-2 border border-gray-300 rounded-full shadow-sm placeholder-gray-200 focus:outline-none hover:shadow-inner focus:shadow-inner focus:ring-green-500 focus:border-green-500 text-xl text-center text-gray-600"
+              id="guess-input" type="number" placeholder="••••" />
+          </div>
           <button
-            class="font-sans hidden w-full mt-2 flex justify-center py-2 px-4 border border-transparent rounded-full shadow-sm text-lg font-medium text-black bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-            id="play-another"
-          >
-            Play another round!
+            class="font-sans mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-full shadow-lg hover:shadow-md text-xl font-bold text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Guess
           </button>
-        </div>
+        </form>
+        <button
+          class="font-sans w-full mt-2 flex justify-center py-2 px-4 border border-transparent rounded-full shadow-sm text-xl font-bold text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          id="play-another">
+          Replay
+        </button>
       </div>
     </div>
     <script>
       let fourBulls = generateRandomNumber();
       // const DEFAULT_GUESS_LENGTH = 4;
 
-      // generate random numbers with unique digits
-      function generateRandomNumber(digits = 4) {
-        // digits: cannot be more than 10
+    // generate random numbers with unique digits
+    function generateRandomNumber(digits = 4) {
+      // digits: cannot be more than 10
 
-        // between 0 and 1 (can't ne one)
-        // between 0 and 9 (both inclusive)
-        if (digits > 10) {
-          // TODO validation at input also
-          return;
-        }
-        const numArr = [];
-        numArr.push(Math.floor(Math.random() * 10));
-
-        while (numArr.length < digits) {
-          let newNum = Math.floor(Math.random() * 10);
-          while (numArr.indexOf(newNum) > -1) {
-            newNum = Math.floor(Math.random() * 10);
-          }
-          numArr.push(newNum);
-        }
-        return numArr.join("");
+      // between 0 and 1 (can't ne one)
+      // between 0 and 9 (both inclusive)
+      if (digits > 10) {
+        // TODO validation at input also
+        return;
       }
+      const numArr = [];
+      numArr.push(Math.floor(Math.random() * 10));
 
-      let correctGuess = false;
+      while (numArr.length < digits) {
+        let newNum = Math.floor(Math.random() * 10);
+        while (numArr.indexOf(newNum) > -1) {
+          newNum = Math.floor(Math.random() * 10);
+        }
+        numArr.push(newNum);
+      }
+      return numArr.join("");
+    }
 
-      const playAnother = document.getElementById("play-another");
-      const pastGuesses = document.getElementById("past-guesses");
+    let correctGuess = false;
 
-      playAnother.addEventListener("click", function (event) {
-        while (pastGuesses.firstChild) {
-          pastGuesses.removeChild(pastGuesses.lastChild);
-          correctGuess = false;
-          playAnother.classList.toggle("hidden");
-          // generate new fourBulls
-          fourBulls = generateRandomNumber();
+    const playAnother = document.getElementById("play-another");
+    const pastGuesses = document.getElementById("past-guesses");
+
+    playAnother.addEventListener("click", function (event) {
+      while (pastGuesses.firstChild) {
+        pastGuesses.removeChild(pastGuesses.lastChild);
+        correctGuess = false;
+        fourBulls = generateRandomNumber();
+      }
+    });
+
+    const guessForm = document.getElementById("guess");
+    const guessInput = document.getElementById("guess-input");
+
+    const fourDigitNumRegex = /^(?!.*(.).*\1)\d{4}$/;
+    guessForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (fourDigitNumRegex.test(guessInput.value)) {
+        // 👆🏽 simple validation
+        const guessCheckResult = checkGuess(fourBulls, guessInput.value);
+        if (guessCheckResult.bulls === 4) {
+          correctGuess = true;
           guessForm.classList.toggle("hidden")
         }
-      });
 
-      const guessForm = document.getElementById("guess");
-      const guessInput = document.getElementById("guess-input");
-
-      const fourDigitNumRegex = /\d{4}/;
-      guessForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        if (fourDigitNumRegex.test(guessInput.value)) {
-          // 👆🏽 simple validation
-          const guessCheckResult = checkGuess(fourBulls, guessInput.value);
-          if (guessCheckResult.bulls === 4) {
-            correctGuess = true;
-            playAnother.classList.toggle("hidden");
-            guessForm.classList.toggle("hidden")
-          }
-
-          const bullsAndCowsStr = genBullsAndCowsString(guessCheckResult);
-          const guessText = document.createTextNode(
-            // guessInput.value
-            `${guessInput.value} · ${bullsAndCowsStr}`
-          );
-          const guessElement = document.createElement("div");
-          guessElement.appendChild(guessText);
-          pastGuesses.append(guessElement);
-          guessInput.value = "";
-        }
-      });
-
-      function checkGuess(targetGuess, currentGuess) {
-        // both arguments should be pre-validated
-        // 1. same length
-        // 2. same chosen format (number vs number ...)
-
-        let bulls = 0;
-        let cows = 0;
-        for (const i in currentGuess) {
-          if (targetGuess[i] === currentGuess[i]) {
-            bulls++;
-          } else if (targetGuess.indexOf(currentGuess[i]) > -1) {
-            cows++;
-          }
-        }
-        return { bulls, cows };
+        const bullsAndCowsStr = genBullsAndCowsString(guessCheckResult);
+        const guessText = document.createTextNode(
+          `${guessInput.value} · ${bullsAndCowsStr}`
+        );
+        const guessElement = document.createElement("div");
+        guessElement.appendChild(guessText);
+        pastGuesses.append(guessElement);
+        guessInput.value = "";
+      } else {
+        console.log("Provide a set of four distinct digits as input.")
       }
+    });
 
-      function genBullsAndCowsString(bullsAndCowsObj) {
-        return `${bullsAndCowsObj.bulls}A ${bullsAndCowsObj.cows}B`;
+    function checkGuess(targetGuess, currentGuess) {
+      // both arguments should be pre-validated
+      // 1. same length
+      // 2. same chosen format (number vs number ...)
+
+      let bulls = 0;
+      let cows = 0;
+      for (const i in currentGuess) {
+        if (targetGuess[i] === currentGuess[i]) {
+          bulls++;
+        } else if (targetGuess.indexOf(currentGuess[i]) > -1) {
+          cows++;
+        }
       }
-    </script>
-  </body>
+      return { bulls, cows };
+    }
+
+    function genBullsAndCowsString(bullsAndCowsObj) {
+      return `${bullsAndCowsObj.bulls}A ${bullsAndCowsObj.cows}B`;
+    }
+  </script>
+</body>
+
 </html>
