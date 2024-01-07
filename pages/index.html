@@ -14,9 +14,9 @@
 
 <body class="bg-green-50 font-sans">
   <div class="px-4 sm:px-6 lg:px-8 py-6">
-    <div class=" text-right text-sm">
-      <a target="_blank" class="underline"
-        href="https://en.wikipedia.org/wiki/Bulls_and_Cows#The_numerical_version">How to play</a>
+    <div class="text-right text-sm">
+      <a target="_blank" class="underline" href="https://en.wikipedia.org/wiki/Bulls_and_Cows#The_numerical_version">How
+        to play</a>
     </div>
     <div class="mx-auto py-10">
       <h1 class="text-4xl text-center font-bold tracking-tight text-green-500 mb-16">
@@ -26,6 +26,10 @@
       <div class="sm:w-1/6 mx-auto">
         <div class="text-xl text-gray-600 font-bold text-center mb-4" id="past-guesses"></div>
         <form class="flex flex-col" id="guess">
+          <span
+            class="font-sans hidden tooltip rounded shadow-sm w-full flex justify-center py-2 px-4 border-gray-300 text-sm text-red-500 -mt-3"
+            id="guess-tooltip">Provide
+            a set of four distinct digits as input.</span>
           <div class="flex justify-between">
             <input
               class="font-sans appearance-none w-full font-bold px-2 py-2 border border-gray-300 rounded-full shadow-sm placeholder-gray-200 focus:outline-none hover:shadow-inner focus:shadow-inner focus:ring-green-500 focus:border-green-500 text-xl text-center text-gray-600"
@@ -87,6 +91,7 @@
 
     const guessForm = document.getElementById("guess");
     const guessInput = document.getElementById("guess-input");
+    const guessTooltip = document.getElementById("guess-tooltip");
 
     const fourDigitNumRegex = /^(?!.*(.).*\1)\d{4}$/;
     guessForm.addEventListener("submit", function (event) {
@@ -108,8 +113,9 @@
         guessElement.appendChild(guessText);
         pastGuesses.append(guessElement);
         guessInput.value = "";
+        guessTooltip.classList.add("hidden");
       } else {
-        console.log("Provide a set of four distinct digits as input.")
+        guessTooltip.classList.remove("hidden");
       }
     });
 
