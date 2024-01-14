@@ -4,7 +4,7 @@ class BullsNCows {
     this.#fourBulls = generateRandomNumber();
   }
   _checkGuess(guess) {
-    checkGuess(this.#fourBulls, guess);
+    return checkGuess(this.#fourBulls, guess);
   }
 }
 
