@@ -183,8 +183,7 @@ def guess_based_on_candidates(
                 candidate_map[entropy] = set([originals[idx]])
 
         print(
-            f"🎲 {safe_log2(len(candidates)):.2f}B - {entropy_map[best_guess]:.2f}B|{score_map[best_guess]:.2f}P ('{originals[best_guess]}')
-        ")
+            f"🎲 {safe_log2(len(candidates)):.2f}B - {entropy_map[best_guess]:.2f}B | {score_map[best_guess]:.2f}P ('{originals[best_guess]}')")
         print(sorted(candidate_map.items(), key=lambda item: item[0]))
 
     return len(candidates), originals[best_guess], entropy_map[best_guess]
@@ -238,8 +237,7 @@ def guess_based_on_entropy(
                 candidate_map[entropy] = set([originals[idx]])
 
         print(
-            f"🎲 {safe_log2(len(candidates)):.2f}B - {entropy_map[best_guess]:.2f}B|{score_map[best_guess]:.2f}P ('{originals[best_guess]}')
-        ")
+            f"🎲 {safe_log2(len(candidates)):.2f}B - {entropy_map[best_guess]:.2f}B | {score_map[best_guess]:.2f}P ('{originals[best_guess]}')")
         print(sorted(candidate_map.items(), key=lambda item: item[0]))
 
     return len(candidates), originals[best_guess], entropy_map[best_guess]
@@ -293,8 +291,7 @@ def guess_based_on_score(
                 candidate_map[score] = set([originals[idx]])
 
         print(
-            f"🎲 {safe_log2(len(candidates)):.2f}B - {entropy_map[best_guess]:.2f}B|{score_map[best_guess]:.2f}P ('{originals[best_guess]}')
-        ")
+            f"🎲 {safe_log2(len(candidates)):.2f}B - {entropy_map[best_guess]:.2f}B | {score_map[best_guess]:.2f}P ('{originals[best_guess]}')")
         print(sorted(candidate_map.items(), key=lambda item: item[0]))
 
     return len(candidates), originals[best_guess], entropy_map[best_guess]
