@@ -38,6 +38,8 @@ class BullsNCows:
             }
         ]
 
+        return self
+
     def next(self):
         if len(self.guesses) > 0:
             guess = self.summary[-1]["best_guess"]
