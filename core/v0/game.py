@@ -80,9 +80,9 @@ class BullsNCows:
 
     def play(self, n_iter=10):
         self.reset()
-        print(self.secret)
+        # print(self.secret)
         while self.summary[-1]["guess"] != self.secret and n_iter > 0:
             self.next()
             n_iter -= 1
 
-        return pd.DataFrame.from_dict(self.summary)
+        return len(self.summary)-1, pd.DataFrame.from_dict(self.summary)
