@@ -78,9 +78,11 @@ class BullsNCows:
 
         return self
 
-    def play(self, n_iter=10):
+    def play(self, secret="", n_iter=10):
         self.reset()
-        # print(self.secret)
+        if secret != "":
+            self.secret = secret
+
         while self.summary[-1]["guess"] != self.secret and n_iter > 0:
             self.next()
             n_iter -= 1
