@@ -40,7 +40,7 @@ class BullsNCows:
 
         return self
 
-    def next(self):
+    def next(self, calc_entropy_score=np.sqrt):
         if len(self.guesses) > 0:
             guess = self.summary[-1]["best_guess"]
         else:
@@ -60,6 +60,7 @@ class BullsNCows:
             bulls_n_cows=guess_result,
             digits=self.digits,
             candidate_entropy=self.summary[-1]["candidate_entropy"],
+            calc_entropy_score=calc_entropy_score,
             verbose=self.verbose,
         )
 
@@ -78,13 +79,13 @@ class BullsNCows:
 
         return self
 
-    def play(self, secret="", n_iter=10):
+    def play(self, secret="", n_iter=10, calc_entropy_score=np.sqrt):
         self.reset()
         if secret != "":
             self.secret = secret
 
         while self.summary[-1]["guess"] != self.secret and n_iter > 0:
-            self.next()
+            self.next(calc_entropy_score=calc_entropy_score)
             n_iter -= 1
 
         return len(self.summary)-1, pd.DataFrame.from_dict(self.summary)

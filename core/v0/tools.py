@@ -114,13 +114,10 @@ def calc_candidates(bulls_n_cows_map):
 
 
 def calc_entropy_score_map(
-    bulls_n_cows_map, candidates, candidate_entropy, guess_count
+    bulls_n_cows_map, candidates, candidate_entropy, guess_count, calc_entropy_score=np.sqrt
 ):
     entropy_map = {}
     score_map = {}
-
-    def calc_score(entropy):
-        return np.sqrt(entropy)
 
     C = len(candidates)
     for idx in bulls_n_cows_map:
@@ -129,7 +126,7 @@ def calc_entropy_score_map(
             [len(bulls_n_cows_map[idx][bc]) for bc in bulls_n_cows_map[idx]], base=2
         )
         score_map[idx] = (
-            guess_count + calc_score(candidate_entropy - entropy_map[idx]) * factor
+            guess_count + calc_entropy_score(candidate_entropy - entropy_map[idx]) * factor
         )
 
     return entropy_map, score_map
@@ -143,6 +140,7 @@ def guess_based_on_candidates(
     guess,
     bulls_n_cows,
     candidate_entropy,
+    calc_entropy_score=np.sqrt,
     verbose=False,
 ):
     bulls_n_cows_map = update_bulls_n_cows_map(
@@ -170,6 +168,7 @@ def guess_based_on_candidates(
         candidates=candidates,
         candidate_entropy=candidate_entropy,
         guess_count=len(guesses),
+        calc_entropy_score=calc_entropy_score,
     )
     best_guess = random.choice(list(candidates))
 
@@ -197,6 +196,7 @@ def guess_based_on_entropy(
     guess,
     bulls_n_cows,
     candidate_entropy,
+    calc_entropy_score=np.sqrt,
     verbose=False,
 ):
     bulls_n_cows_map = update_bulls_n_cows_map(
@@ -224,6 +224,7 @@ def guess_based_on_entropy(
         candidates=candidates,
         candidate_entropy=candidate_entropy,
         guess_count=len(guesses),
+        calc_entropy_score=calc_entropy_score,
     )
     best_guess = max(entropy_map, key=entropy_map.get)
 
@@ -251,6 +252,7 @@ def guess_based_on_score(
     guess,
     bulls_n_cows,
     candidate_entropy,
+    calc_entropy_score=np.sqrt,
     verbose=False,
 ):
     bulls_n_cows_map = update_bulls_n_cows_map(
@@ -278,6 +280,7 @@ def guess_based_on_score(
         candidates=candidates,
         candidate_entropy=candidate_entropy,
         guess_count=len(guesses),
+        calc_entropy_score=calc_entropy_score,
     )
     best_guess = min(score_map, key=score_map.get)
 
