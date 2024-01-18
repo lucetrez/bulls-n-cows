@@ -35,13 +35,38 @@ jobs:
         with:
           sparse-checkout: pages
 
+      - name: Create distribution path
+        run: |
+         mkdir -p dist_pages
+      
+      - name: Low obfuscation test
+        uses: KevinRohn/github-action-javascript-obfuscator@v1
+        with:
+          input_path: pages
+          output_path: dist_pages
+          compact: true
+          control_flow_flattening: false
+          dead_code_injection: false
+          debug_protection: false
+          debug_protection_interval: 0
+          log: false
+          disable_console_output: true
+          rename_globals: false
+          string_array_rotate: true
+          self_defending: true
+          string_array: true
+          string_array_encoding: 'none'
+          string_array_threshold: 0.75
+          unicode_escape_sequence: false
+          target: node
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: pages
+          path: dist_pages
 
       - name: Deploy to GitHub Pages
         id: deployment
